@@ -1,1 +1,37 @@
-<p>sign-up-form works!</p>
+<form [formGroup]="form" (ngSubmit)="formSubmit.emit(form.value)">
+    <h2>Sign up!</h2>
+
+    <label>
+        First name:
+        <input type="text" class="first-name" formControlName="firstName" />
+    </label>
+
+    <label>
+        Last name:
+        <input type="text" class="last-name" formControlName="lastName" />
+    </label>
+
+    <label>
+        Email:
+        <input type="email" class="email-name" formControlName="email" />
+    </label>
+
+    <label>
+        Password:
+        <input type="password" class="password" formControlName="password" />
+    </label>
+
+    <label>
+        Password confirmation:
+        <input
+            type="password"
+            class="password-confirmation"
+            formControlName="passwordConfirmation"
+        />
+    </label>
+
+    <button type="submit">Sign Up!</button>
+</form>
+
+<hr />
+<pre>form: {{ form.value | json }}</pre>
