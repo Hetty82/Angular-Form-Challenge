@@ -5,21 +5,63 @@
         First name:
     </label>
     <input type="text" id="firstName" class="first-name" formControlName="firstName" required />
+    <div class="hints">
+        <div *ngIf="firstName.touched && firstName.hasError('required')" class="hint">
+            First name is required
+        </div>
+    </div>
 
     <label for="lastName">
         Last name:
     </label>
     <input type="text" id="lastName" class="last-name" formControlName="lastName" required />
+    <div class="hints">
+        <div *ngIf="lastName.touched && lastName.hasError('required')" class="hint">
+            Last name is required
+        </div>
+    </div>
 
     <label for="email">
         Email:
     </label>
     <input type="email" id="email" class="email-name" formControlName="email" required />
+    <div class="hints">
+        <ng-container *ngIf="email.touched">
+            <div *ngIf="email.hasError('required')" class="hint">
+                Email is required
+            </div>
+            <div *ngIf="email.hasError('email')" class="hint">
+                Enter a valid email address
+            </div>
+        </ng-container>
+    </div>
 
     <label for="password">
         Password:
     </label>
     <input type="password" id="password" class="password" formControlName="password" required />
+    <div class="hints">
+        <ng-container *ngIf="password.touched">
+            <div *ngIf="password.hasError('required')" class="hint">
+                Password is required
+            </div>
+            <div *ngIf="password.hasError('minlength')" class="hint">
+                Password has to be at least 8 characters
+            </div>
+            <div *ngIf="password.hasError('hasCapitalCase')" class="hint">
+                Password has to contain at least one capital character
+            </div>
+            <div *ngIf="password.hasError('hasLowerCase')" class="hint">
+                Password has to contain at least one lower character
+            </div>
+            <div *ngIf="form.hasError('noFirstNameInPassword')" class="hint">
+                Password may not contain your first name
+            </div>
+            <div *ngIf="form.hasError('noLastNameInPassword')" class="hint">
+                Password may not contain your last name
+            </div>
+        </ng-container>
+    </div>
 
     <label for="paswordConfirmation">
         Password confirmation:
@@ -31,12 +73,24 @@
         formControlName="passwordConfirmation"
         required
     />
+    <div class="hints">
+        <ng-container *ngIf="passwordConfirmation.touched">
+            <div *ngIf="passwordConfirmation.hasError('required')" class="hint">
+                Password confirmation is required
+            </div>
+            <div *ngIf="form.hasError('notSame')" class="hint">
+                Password is not the same
+            </div>
+        </ng-container>
+    </div>
 
     <footer>
         <button type="reset">Reset</button>
-        <button type="submit">Sign Up!</button>
+        <button type="submit" [disabled]="form.invalid">Sign Up!</button>
     </footer>
 </form>
 
 <hr />
 <pre>form: {{ form.value | json }}</pre>
+<pre>valid: {{ form.valid }}</pre>
+<pre>errors: {{ form.errors | json }}</pre>
