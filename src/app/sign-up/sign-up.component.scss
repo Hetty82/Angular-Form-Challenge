@@ -1,1 +1,7 @@
-// sign up
+@use 'variables' as v;
+
+:host {
+    display: flex;
+    height: calc(100vh - #{v.$header-height});
+    justify-content: center;
+}

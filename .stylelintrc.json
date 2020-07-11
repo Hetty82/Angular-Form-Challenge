@@ -8,6 +8,7 @@
             {
                 "ignore": ["pseudo-classes"]
             }
-        ]
+        ],
+        "color-named": null
     }
 }

@@ -1,1 +1,17 @@
-// app
+@use 'variables' as v;
+
+header {
+    align-items: center;
+    background: v.$gray-header;
+    color: v.$white;
+    display: flex;
+    height: v.$header-height;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+}

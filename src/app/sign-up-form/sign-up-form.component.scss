@@ -1,1 +1,28 @@
-// sign up form
+@use 'variables' as v;
+
+:host {
+    display: block;
+    margin-top: 5vh;
+    width: 30rem;
+}
+
+form {
+    border: 1px solid v.$gray;
+    border-radius: v.$radius;
+    display: grid;
+    gap: 1em;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 2em;
+    padding: 1em;
+}
+
+h2 {
+    text-align: center;
+}
+
+footer {
+    display: flex;
+    grid-column: 1 / -1;
+    justify-content: space-between;
+    padding-top: 1em;
+}

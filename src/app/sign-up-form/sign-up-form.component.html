@@ -1,36 +1,41 @@
+<h2>Sign up!</h2>
+
 <form [formGroup]="form" (ngSubmit)="formSubmit.emit(form.value)">
-    <h2>Sign up!</h2>
-
-    <label>
+    <label for="firstName">
         First name:
-        <input type="text" class="first-name" formControlName="firstName" />
     </label>
+    <input type="text" id="firstName" class="first-name" formControlName="firstName" required />
 
-    <label>
+    <label for="lastName">
         Last name:
-        <input type="text" class="last-name" formControlName="lastName" />
     </label>
+    <input type="text" id="lastName" class="last-name" formControlName="lastName" required />
 
-    <label>
+    <label for="email">
         Email:
-        <input type="email" class="email-name" formControlName="email" />
     </label>
+    <input type="email" id="email" class="email-name" formControlName="email" required />
 
-    <label>
+    <label for="password">
         Password:
-        <input type="password" class="password" formControlName="password" />
     </label>
+    <input type="password" id="password" class="password" formControlName="password" required />
 
-    <label>
+    <label for="paswordConfirmation">
         Password confirmation:
-        <input
-            type="password"
-            class="password-confirmation"
-            formControlName="passwordConfirmation"
-        />
     </label>
+    <input
+        type="password"
+        id="passwordConfirmation"
+        class="password-confirmation"
+        formControlName="passwordConfirmation"
+        required
+    />
 
-    <button type="submit">Sign Up!</button>
+    <footer>
+        <button type="reset">Reset</button>
+        <button type="submit">Sign Up!</button>
+    </footer>
 </form>
 
 <hr />
