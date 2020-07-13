@@ -19,7 +19,7 @@ describe('SignUpService', () => {
         return { service, httpTestingController, stub };
     };
 
-    it('posts the sign up data to the correct url', () => {
+    test('posts the sign up data to the correct url', () => {
         // Arrange
         const data: SignUpData = {
             firstName: 'Leia',

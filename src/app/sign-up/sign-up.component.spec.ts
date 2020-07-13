@@ -8,6 +8,10 @@ import { SignUpFormComponent } from '../sign-up-form/sign-up-form.component';
 import { SignUpComponent } from './sign-up.component';
 
 describe('SignUpComponent', () => {
+    // I don't like beforeEach, I occassionally use it but for setting up the test I prefer an
+    // arrange function like this. It allows for passing arguments from your test and keeps it's
+    // clear what is happening when.
+
     const arrange = (overrides: any = {}) => {
         const signUpSubject$ = new Subject();
 
