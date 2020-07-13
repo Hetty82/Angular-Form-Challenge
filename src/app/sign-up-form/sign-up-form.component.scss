@@ -31,10 +31,14 @@ form {
 }
 
 .hints {
-    color: v.$red;
+    color: v.$gray-light;
     font-size: smaller;
     grid-column: 1 / -1;
     min-height: 1.5 * 0.875rem;
+
+    &.errors {
+        color: v.$red;
+    }
 }
 
 footer {

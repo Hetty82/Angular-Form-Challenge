@@ -9,7 +9,7 @@
         First name:
     </label>
     <input type="text" id="firstName" class="first-name" formControlName="firstName" required />
-    <div class="hints">
+    <div class="hints errors">
         <div *ngIf="firstName.touched && firstName.hasError('required')" class="hint">
             First name is required
         </div>
@@ -19,7 +19,7 @@
         Last name:
     </label>
     <input type="text" id="lastName" class="last-name" formControlName="lastName" required />
-    <div class="hints">
+    <div class="hints errors">
         <div *ngIf="lastName.touched && lastName.hasError('required')" class="hint">
             Last name is required
         </div>
@@ -29,7 +29,7 @@
         Email:
     </label>
     <input type="email" id="email" class="email" formControlName="email" required />
-    <div class="hints email">
+    <div class="hints email errors">
         <ng-container *ngIf="email.touched">
             <div *ngIf="email.hasError('required')" class="hint">
                 Email is required
@@ -40,11 +40,15 @@
         </ng-container>
     </div>
 
+    <div class="hints">
+        Password has to be at least 8 characters, use upper and lower case and may not contain your
+        first or last name.
+    </div>
     <label for="password" class="password">
         Password:
     </label>
     <input type="password" id="password" class="password" formControlName="password" required />
-    <div class="hints">
+    <div class="hints errors">
         <ng-container *ngIf="password.touched">
             <div *ngIf="password.hasError('required')" class="hint">
                 Password is required
@@ -77,7 +81,7 @@
         formControlName="passwordConfirmation"
         required
     />
-    <div class="hints">
+    <div class="hints errors">
         <ng-container *ngIf="passwordConfirmation.touched">
             <div *ngIf="passwordConfirmation.hasError('required')" class="hint">
                 Password confirmation is required
