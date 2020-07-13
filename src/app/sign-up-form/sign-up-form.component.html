@@ -1,7 +1,7 @@
 <h2>Sign up!</h2>
 
 <form [formGroup]="form" (ngSubmit)="formSubmit.emit(form.value)">
-    <label for="firstName">
+    <label for="firstName" class="first-name">
         First name:
     </label>
     <input type="text" id="firstName" class="first-name" formControlName="firstName" required />
@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <label for="lastName">
+    <label for="lastName" class="last-name">
         Last name:
     </label>
     <input type="text" id="lastName" class="last-name" formControlName="lastName" required />
@@ -21,11 +21,11 @@
         </div>
     </div>
 
-    <label for="email">
+    <label for="email" class="email">
         Email:
     </label>
-    <input type="email" id="email" class="email-name" formControlName="email" required />
-    <div class="hints">
+    <input type="email" id="email" class="email" formControlName="email" required />
+    <div class="hints email">
         <ng-container *ngIf="email.touched">
             <div *ngIf="email.hasError('required')" class="hint">
                 Email is required
@@ -36,7 +36,7 @@
         </ng-container>
     </div>
 
-    <label for="password">
+    <label for="password" class="password">
         Password:
     </label>
     <input type="password" id="password" class="password" formControlName="password" required />
@@ -63,7 +63,7 @@
         </ng-container>
     </div>
 
-    <label for="paswordConfirmation">
+    <label for="paswordConfirmation" class="password-confirmation">
         Password confirmation:
     </label>
     <input
