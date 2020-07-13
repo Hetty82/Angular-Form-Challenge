@@ -94,9 +94,11 @@
     </footer>
 </form>
 
-<hr />
-<pre>enabled: {{ form.enabled }}</pre>
-<pre>form: {{ form.value | json }}</pre>
-<pre>valid: {{ form.valid }}</pre>
-<pre>invalid: {{ form.invalid }}</pre>
-<pre>errors: {{ form.errors | json }}</pre>
+<ng-container *ngIf="false">
+    <hr />
+    <pre>enabled: {{ form.enabled }}</pre>
+    <pre>form: {{ form.value | json }}</pre>
+    <pre>valid: {{ form.valid }}</pre>
+    <pre>invalid: {{ form.invalid }}</pre>
+    <pre>errors: {{ form.errors | json }}</pre>
+</ng-container>
