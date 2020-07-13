@@ -63,6 +63,7 @@ export class SignUpComponent implements OnInit {
             {
                 firstName: [null, Validators.required],
                 lastName: [null, Validators.required],
+                // I think Google knows better, so I chose their (Angular's) built in validator
                 email: [null, [Validators.required, Validators.email]],
                 password: [
                     null,
