@@ -27,11 +27,11 @@ describe('SignUpFormComponent', () => {
         return { fixture, component };
     };
 
+    // I ended up using most of these only once, but I'll leave them here to show how I'd add
+    // element helpers when needed
     const getForm = (debugElement: DebugElement): HTMLFormElement =>
         debugElement.query(By.css('form')).nativeElement;
 
-    // I ended up using these only once, but I'll leave them here to show how I'd add element
-    // helpers when needed
     const getFirstNameInput = (debugElement: DebugElement): HTMLInputElement =>
         debugElement.query(By.css('input.first-name')).nativeElement;
 
@@ -43,6 +43,9 @@ describe('SignUpFormComponent', () => {
 
     const getPasswordInput = (debugElement: DebugElement): HTMLInputElement =>
         debugElement.query(By.css('input.password')).nativeElement;
+
+    const getPasswordErrors = (debugElement: DebugElement): HTMLInputElement =>
+        debugElement.query(By.css('.hints.password.errors')).nativeElement;
 
     const getPasswordConfirmationInput = (debugElement: DebugElement): HTMLInputElement =>
         debugElement.query(By.css('input.password-confirmation')).nativeElement;
@@ -258,12 +261,12 @@ describe('SignUpFormComponent', () => {
             // Arrange
             const { fixture, component } = arrange();
             const passwordControl = component.form.get('password');
-            const formEl = getForm(fixture.debugElement);
+            const errorHints = getPasswordErrors(fixture.debugElement);
 
             const expected = 'Password is required';
 
             // Assert initial
-            expect(formEl.textContent).not.toContain(expected);
+            expect(errorHints.textContent).not.toContain(expected);
 
             // Act
             passwordControl.setErrors({ required: true });
@@ -271,19 +274,19 @@ describe('SignUpFormComponent', () => {
             fixture.detectChanges();
 
             // Assert
-            expect(formEl.textContent).toContain(expected);
+            expect(errorHints.textContent).toContain(expected);
         });
 
         test('shows a hint when it has a minlength error and is touched', () => {
             // Arrange
             const { fixture, component } = arrange();
             const passwordControl = component.form.get('password');
-            const formEl = getForm(fixture.debugElement);
+            const errorHints = getPasswordErrors(fixture.debugElement);
 
             const expected = 'Password has to be at least 8 characters';
 
             // Assert initial
-            expect(formEl.textContent).not.toContain(expected);
+            expect(errorHints.textContent).not.toContain(expected);
 
             // Act
             passwordControl.setErrors({ minlength: true });
@@ -291,19 +294,19 @@ describe('SignUpFormComponent', () => {
             fixture.detectChanges();
 
             // Assert
-            expect(formEl.textContent).toContain(expected);
+            expect(errorHints.textContent).toContain(expected);
         });
 
         test('shows a hint when it has a hasCapitalCase error and is touched', () => {
             // Arrange
             const { fixture, component } = arrange();
             const passwordControl = component.form.get('password');
-            const formEl = getForm(fixture.debugElement);
+            const errorHints = getPasswordErrors(fixture.debugElement);
 
             const expected = 'Password has to contain at least one capital character';
 
             // Assert initial
-            expect(formEl.textContent).not.toContain(expected);
+            expect(errorHints.textContent).not.toContain(expected);
 
             // Act
             passwordControl.setErrors({ hasCapitalCase: true });
@@ -311,19 +314,19 @@ describe('SignUpFormComponent', () => {
             fixture.detectChanges();
 
             // Assert
-            expect(formEl.textContent).toContain(expected);
+            expect(errorHints.textContent).toContain(expected);
         });
 
         test('shows a hint when it has a hasLowerCase error and is touched', () => {
             // Arrange
             const { fixture, component } = arrange();
             const passwordControl = component.form.get('password');
-            const formEl = getForm(fixture.debugElement);
+            const errorHints = getPasswordErrors(fixture.debugElement);
 
             const expected = 'Password has to contain at least one lower character';
 
             // Assert initial
-            expect(formEl.textContent).not.toContain(expected);
+            expect(errorHints.textContent).not.toContain(expected);
 
             // Act
             passwordControl.setErrors({ hasLowerCase: true });
@@ -331,19 +334,19 @@ describe('SignUpFormComponent', () => {
             fixture.detectChanges();
 
             // Assert
-            expect(formEl.textContent).toContain(expected);
+            expect(errorHints.textContent).toContain(expected);
         });
 
         test('shows a hint when it has a noFirstNameInPassword error and is touched', () => {
             // Arrange
             const { fixture, component } = arrange();
             const passwordControl = component.form.get('password');
-            const formEl = getForm(fixture.debugElement);
+            const errorHints = getPasswordErrors(fixture.debugElement);
 
             const expected = 'Password may not contain your first name';
 
             // Assert initial
-            expect(formEl.textContent).not.toContain(expected);
+            expect(errorHints.textContent).not.toContain(expected);
 
             // Act
             component.form.setErrors({ noFirstNameInPassword: true });
@@ -351,19 +354,19 @@ describe('SignUpFormComponent', () => {
             fixture.detectChanges();
 
             // Assert
-            expect(formEl.textContent).toContain(expected);
+            expect(errorHints.textContent).toContain(expected);
         });
 
         test('shows a hint when it has a noLastNameInPassword error and is touched', () => {
             // Arrange
             const { fixture, component } = arrange();
             const passwordControl = component.form.get('password');
-            const formEl = getForm(fixture.debugElement);
+            const errorHints = getPasswordErrors(fixture.debugElement);
 
             const expected = 'Password may not contain your last name';
 
             // Assert initial
-            expect(formEl.textContent).not.toContain(expected);
+            expect(errorHints.textContent).not.toContain(expected);
 
             // Act
             component.form.setErrors({ noLastNameInPassword: true });
@@ -371,7 +374,7 @@ describe('SignUpFormComponent', () => {
             fixture.detectChanges();
 
             // Assert
-            expect(formEl.textContent).toContain(expected);
+            expect(errorHints.textContent).toContain(expected);
         });
     });
 

@@ -40,7 +40,7 @@
         </ng-container>
     </div>
 
-    <div class="hints">
+    <div class="hints password">
         Password has to be at least 8 characters, use upper and lower case and may not contain your
         first or last name.
     </div>
@@ -48,7 +48,7 @@
         Password:
     </label>
     <input type="password" id="password" class="password" formControlName="password" required />
-    <div class="hints errors">
+    <div class="hints password errors">
         <ng-container *ngIf="password.touched">
             <div *ngIf="password.hasError('required')" class="hint">
                 Password is required

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
     AbstractControl,
     FormBuilder,
@@ -7,6 +7,8 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 import { Feedback, SignUpData } from '../models/sign-up.model';
 import { SignUpService } from '../services/sign-up.service';
 
@@ -15,14 +17,21 @@ import { SignUpService } from '../services/sign-up.service';
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.scss'],
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent implements OnInit, OnDestroy {
     public form: FormGroup;
     public feedback: Feedback;
+
+    private subscription = new Subscription();
 
     constructor(private signUpService: SignUpService, private fb: FormBuilder) {}
 
     ngOnInit(): void {
         this.buildForm();
+        this.enablePasswordConfirmationOnValidPassword();
+    }
+
+    ngOnDestroy(): void {
+        this.subscription.unsubscribe();
     }
 
     public signUp({ firstName, lastName, email }: SignUpData) {
@@ -54,8 +63,9 @@ export class SignUpComponent implements OnInit {
             });
     }
 
-    public clearFeedback() {
+    public onReset() {
         this.feedback = null;
+        this.form.get('passwordConfirmation').disable();
     }
 
     private buildForm() {
@@ -78,7 +88,7 @@ export class SignUpComponent implements OnInit {
                         this.createPatternValidator(/[a-z]/, { hasLowerCase: true }),
                     ],
                 ],
-                passwordConfirmation: [null, Validators.required],
+                passwordConfirmation: [{ value: null, disabled: true }, Validators.required],
             },
             {
                 validators: [
@@ -88,6 +98,17 @@ export class SignUpComponent implements OnInit {
                 ],
             },
         );
+    }
+
+    private enablePasswordConfirmationOnValidPassword() {
+        const passwordControl = this.form.get('password');
+        const confirmationControl = this.form.get('passwordConfirmation');
+
+        passwordControl.valueChanges.pipe(distinctUntilChanged()).subscribe(() => {
+            if (passwordControl.valid && confirmationControl.disabled) {
+                confirmationControl.enable();
+            }
+        });
     }
 
     // This was inspired here:
