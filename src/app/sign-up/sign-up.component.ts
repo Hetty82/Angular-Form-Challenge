@@ -7,7 +7,7 @@ import {
     ValidatorFn,
     Validators,
 } from '@angular/forms';
-import { SignUpData } from '../models/sign-up.model';
+import { Feedback, SignUpData } from '../models/sign-up.model';
 import { SignUpService } from '../services/sign-up.service';
 
 @Component({
@@ -17,6 +17,7 @@ import { SignUpService } from '../services/sign-up.service';
 })
 export class SignUpComponent implements OnInit {
     public form: FormGroup;
+    public feedback: Feedback;
 
     constructor(private signUpService: SignUpService, private fb: FormBuilder) {}
 
@@ -25,12 +26,36 @@ export class SignUpComponent implements OnInit {
     }
 
     public signUp({ firstName, lastName, email }: SignUpData) {
-        // todo: add submit feedback
-        this.signUpService.signUp$({
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            email: email.trim(),
-        });
+        this.form.disable();
+        // No need to unsubscribe, http call completes immediately
+        this.signUpService
+            .signUp$({
+                firstName: firstName.trim(),
+                lastName: lastName.trim(),
+                email: email.trim(),
+            })
+            .subscribe({
+                next: () => {
+                    this.feedback = {
+                        type: 'success',
+                        message:
+                            '💚 You successfully signed up, welcome! Please confirm via the email we sent you. See you later!',
+                    };
+                },
+                error: (err) => {
+                    this.feedback = {
+                        type: 'error',
+                        message:
+                            '❌ Something went wrong. Please try again, now or later. Thank you!',
+                    };
+                    this.form.enable();
+                    console.error('Posting failed:', err);
+                },
+            });
+    }
+
+    public clearFeedback() {
+        this.feedback = null;
     }
 
     private buildForm() {
@@ -58,7 +83,7 @@ export class SignUpComponent implements OnInit {
                 validators: [
                     this.validatePasswordConfirmation,
                     this.validateNoFirstNameInPassword,
-                    this.validatNoLastNameInPassword,
+                    this.validateNoLastNameInPassword,
                 ],
             },
         );
@@ -100,7 +125,7 @@ export class SignUpComponent implements OnInit {
         return invalid ? { noFirstNameInPassword: true } : null;
     }
 
-    private validatNoLastNameInPassword(group: FormGroup) {
+    private validateNoLastNameInPassword(group: FormGroup) {
         const lastNameControlValue: string = group.get('lastName').value;
         if (!lastNameControlValue) {
             return null;

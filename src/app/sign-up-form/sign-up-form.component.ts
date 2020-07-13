@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { SignUpFormData } from '../models/sign-up.model';
+import { Feedback, SignUpFormData } from '../models/sign-up.model';
 
 @Component({
     selector: 'app-sign-up-form',
@@ -9,8 +9,10 @@ import { SignUpFormData } from '../models/sign-up.model';
 })
 export class SignUpFormComponent implements OnInit {
     @Input() form: FormGroup;
+    @Input() feedback: Feedback;
 
     @Output() formSubmit = new EventEmitter<SignUpFormData>();
+    @Output() formReset = new EventEmitter();
 
     constructor() {}
 

@@ -8,3 +8,8 @@ export interface SignUpFormData extends SignUpData {
     password: string;
     passwordConfirmation: string;
 }
+
+export interface Feedback {
+    type: 'success' | 'error';
+    message: string;
+}

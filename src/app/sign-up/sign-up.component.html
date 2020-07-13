@@ -1,1 +1,6 @@
-<app-sign-up-form [form]="form" (formSubmit)="signUp($event)"></app-sign-up-form>
+<app-sign-up-form
+    [form]="form"
+    [feedback]="feedback"
+    (formSubmit)="signUp($event)"
+    (formReset)="clearFeedback()"
+></app-sign-up-form>

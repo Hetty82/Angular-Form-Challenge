@@ -6,6 +6,10 @@
     width: 30rem;
 }
 
+h2 {
+    text-align: center;
+}
+
 form {
     border: 1px solid v.$gray;
     border-radius: v.$radius;
@@ -16,8 +20,14 @@ form {
     padding: 1em;
 }
 
-h2 {
-    text-align: center;
+.feedback {
+    color: v.$green;
+    grid-column: 1 / -1;
+    margin-bottom: 1em;
+
+    &.red {
+        color: v.$red;
+    }
 }
 
 .hints {

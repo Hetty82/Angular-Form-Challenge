@@ -1,6 +1,10 @@
 <h2>Sign up!</h2>
 
 <form [formGroup]="form" (ngSubmit)="formSubmit.emit(form.value)">
+    <div *ngIf="feedback" class="feedback" [class.red]="feedback.type === 'error'">
+        {{ feedback.message }}
+    </div>
+
     <label for="firstName" class="first-name">
         First name:
     </label>
@@ -85,12 +89,14 @@
     </div>
 
     <footer>
-        <button type="reset">Reset</button>
-        <button type="submit" [disabled]="form.invalid">Sign Up!</button>
+        <button (click)="formReset.emit()" type="reset" [disabled]="form.disabled">Reset</button>
+        <button type="submit" [disabled]="!form.valid">Sign Up!</button>
     </footer>
 </form>
 
 <hr />
+<pre>enabled: {{ form.enabled }}</pre>
 <pre>form: {{ form.value | json }}</pre>
 <pre>valid: {{ form.valid }}</pre>
+<pre>invalid: {{ form.invalid }}</pre>
 <pre>errors: {{ form.errors | json }}</pre>
